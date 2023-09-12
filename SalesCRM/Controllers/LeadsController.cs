@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SalesCRM.Data;
 using SalesCRM.Models;
 
 namespace SalesCRM.Controllers
 {
-    [Authorize ]
+    [Authorize]
     public class LeadsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -24,9 +19,9 @@ namespace SalesCRM.Controllers
         // GET: Leads
         public async Task<IActionResult> Index()
         {
-              return _context.SalesLead != null ? 
-                          View(await _context.SalesLead.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.SalesLead'  is null.");
+            return _context.SalesLead != null ?
+                        View(await _context.SalesLead.ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.SalesLead'  is null.");
         }
 
         // GET: Leads/Details/5
@@ -152,14 +147,14 @@ namespace SalesCRM.Controllers
             {
                 _context.SalesLead.Remove(salesLeadEntity);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool SalesLeadEntityExists(int id)
         {
-          return (_context.SalesLead?.Any(e => e.id == id)).GetValueOrDefault();
+            return (_context.SalesLead?.Any(e => e.id == id)).GetValueOrDefault();
         }
     }
 }
