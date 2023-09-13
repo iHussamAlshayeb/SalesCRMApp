@@ -6,7 +6,6 @@ using SalesCRM.Models;
 
 namespace SalesCRM.Controllers
 {
-    [Authorize]
     public class LeadsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -17,6 +16,8 @@ namespace SalesCRM.Controllers
         }
 
         // GET: Leads
+        [Authorize(Roles = "Admin,Sales")]
+
         public async Task<IActionResult> Index()
         {
             return _context.SalesLead != null ?
@@ -24,6 +25,7 @@ namespace SalesCRM.Controllers
                         Problem("Entity set 'ApplicationDbContext.SalesLead'  is null.");
         }
 
+        [Authorize(Roles = "Admin,Sales")]
         // GET: Leads/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -42,12 +44,14 @@ namespace SalesCRM.Controllers
             return View(salesLeadEntity);
         }
 
+        [Authorize(Roles = "Admin,Sales")]
         // GET: Leads/Create
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin,Sales")]
         // POST: Leads/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -64,6 +68,7 @@ namespace SalesCRM.Controllers
             return View(salesLeadEntity);
         }
 
+        [Authorize(Roles = "Admin,Sales")]
         // GET: Leads/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -80,6 +85,7 @@ namespace SalesCRM.Controllers
             return View(salesLeadEntity);
         }
 
+        [Authorize(Roles = "Admin,Sales")]
         // POST: Leads/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -115,6 +121,7 @@ namespace SalesCRM.Controllers
             return View(salesLeadEntity);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Leads/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -133,6 +140,7 @@ namespace SalesCRM.Controllers
             return View(salesLeadEntity);
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: Leads/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
